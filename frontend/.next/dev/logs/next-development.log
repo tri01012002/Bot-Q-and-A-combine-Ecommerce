@@ -1,0 +1,102 @@
+[00:00:00.627] Server  LOG     
+[00:00:00.627] Server  LOG       We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+[00:00:00.628] Server  LOG       The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+[00:00:00.628] Server  LOG       	- include was updated to add '.next/dev/types/**/*.ts'
+[00:00:00.628] Server  LOG     
+[00:00:00.628] Server  LOG       The following mandatory changes were made to your tsconfig.json:
+
+[00:00:00.628] Server  LOG       	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+[00:00:00.628] Server  LOG     
+[00:00:00.760] Server  LOG     ✓ Ready in 500ms
+[00:01:20.806] Server  ERROR   ⨯ ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+
+
+[00:01:22.008] Browser ERROR   uncaughtError: Error: ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+
+
+[00:01:22.188] Browser ERROR   ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+[00:01:22.547] Browser ERROR   ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+[00:01:59.440] Server  ERROR   ⨯ ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+
+
+[00:01:59.662] Browser ERROR   uncaughtError: Error: ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+
+
+[00:01:59.827] Browser ERROR   ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+[00:01:59.827] Browser ERROR   ./src/app/page.tsx:98:15
+Parsing ecmascript source code failed
+   96 |                 </div>
+   97 |             </div>
+>  98 |         </div Krank);
+      |               ^^^^^
+   99 | }
+  100 |
+
+Expected '>', got 'Krank'
+[00:03:34.348] Server  LOG     ✓ Compiled in 94ms
+[00:03:35.947] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[49:09:34.967] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
