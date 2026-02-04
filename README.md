@@ -127,7 +127,7 @@ terraform apply
 - Pipeline: git push → build & push Docker images → deploy Helm charts to GKE
 
 3. Monitoring
-- Access Grafana dashboard to view metrics, logs, and distributed traces
+Access Grafana dashboard to view metrics, logs, and distributed traces
 
 ### Lessons Learned
 - Domain-specific Vietnamese embeddings are critical for accurate retrieval in medical/legal contexts
@@ -150,3 +150,4 @@ MIT License — see the LICENSE file for details.
 - Nguyen Minh Tri
 - 📧 tringuyen.01012002@gmail.com
 - 🐙 https://github.com/tri01012002
+
