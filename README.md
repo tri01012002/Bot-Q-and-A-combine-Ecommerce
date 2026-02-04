@@ -111,3 +111,42 @@ Bashcd frontend
 npm start
 ```
 - Open browser: http://localhost:3000
+
+### Production Deployment
+
+1. Infrastructure (GKE)
+```bash
+Bashcd terraform
+terraform init
+terraform apply
+```
+
+2. Jenkins CI/CD
+- Provision Jenkins VM using Ansible
+- Configure GitHub webhook
+- Pipeline: git push → build & push Docker images → deploy Helm charts to GKE
+
+3. Monitoring
+- Access Grafana dashboard to view metrics, logs, and distributed traces
+
+### Lessons Learned
+- Domain-specific Vietnamese embeddings are critical for accurate retrieval in medical/legal contexts
+- CPU-only LLM inference requires prompt optimization and caching strategies
+- Combining React frontend with Python AI backend works smoothly via well-defined REST APIs
+- Full observability stack (Prometheus/Grafana/Loki/Jaeger) significantly speeds up debugging in production
+- Load testing (Locust) confirmed stability under 100+ concurrent users
+
+### Contributing
+- Fork the repository
+- Create your feature branch (git checkout -b feature/amazing-feature)
+- Commit your changes (git commit -m 'Add some amazing feature')
+- Push to the branch (git push origin feature/amazing-feature)
+- Open a Pull Request
+
+### License
+MIT License — see the LICENSE file for details.
+
+### Contact
+- Nguyen Minh Tri
+- 📧 tringuyen.01012002@gmail.com
+- 🐙 https://github.com/tri01012002
