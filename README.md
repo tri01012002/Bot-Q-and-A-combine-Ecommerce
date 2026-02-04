@@ -147,7 +147,8 @@ Access Grafana dashboard to view metrics, logs, and distributed traces
 MIT License — see the LICENSE file for details.
 
 ### Contact
-- Nguyen Minh Tri
+Nguyen Minh Tri
 - 📧 tringuyen.01012002@gmail.com
 - 🐙 https://github.com/tri01012002
+
 
