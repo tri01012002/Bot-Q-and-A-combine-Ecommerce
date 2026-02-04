@@ -1,102 +1,129 @@
-Health E-commerce with Chatbot AI Q&A
+# Health E-commerce with RAG Chatbot
 
-Goal Description
-Build a Health E-commerce system integrated with a RAG-based (Retrieval-Augmented Generation) Chatbot. The system will provide answers to health-related questions based on reliable medical documents (Ministry of Health guidelines, etc.) and recommend relevant OTC products.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/tri01012002/Health-Ecommerce-Chatbot)](https://github.com/tri01012002/Health-Ecommerce-Chatbot/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/tri01012002/Health-Ecommerce-Chatbot)](https://github.com/tri01012002/Health-Ecommerce-Chatbot/network/members)
 
-User Review Required
-IMPORTANT
-Legal Disclaimer: The application must clearly state that the AI advice is for reference only and not a substitute for professional medical advice. Product recommendations are limited to OTC and herbal products.
+## Overview
 
-NOTE
-Infrastructure: The plan mimics an existing RAG repo using Jenkins and Kubernetes. This is complex for a solo project but valuable for learning/portfolio. Enure sufficient local resources (RAM/CPU) for running LLMs and K8s locally.
+**Health E-commerce with RAG Chatbot** là một hệ thống thương mại điện tử sức khỏe **production-ready**, tích hợp **chatbot hỏi đáp y tế** sử dụng **Retrieval-Augmented Generation (RAG)** và **gợi ý sản phẩm cá nhân hóa**.
 
-Proposed Architecture
-Backend (Python/FastAPI)
-API Layer: FastAPI to serve endpoints for Chat (/chat) and E-commerce operations.
+Người dùng có thể:
+- Hỏi đáp về các vấn đề sức khỏe (triệu chứng, cách phòng ngừa, thông tin bệnh lý thông thường)
+- Nhận câu trả lời chính xác dựa trên tài liệu y tế công khai (PDF từ Bộ Y tế Việt Nam, WHO, tài liệu hướng dẫn sức khỏe)
+- Được gợi ý các sản phẩm **OTC (thuốc không kê đơn)** và **thảo dược** phù hợp với nội dung cuộc trò chuyện
 
-RAG Engine: LangChain to manage the pipeline (PDF -> Chunking -> Embedding -> Retrieval -> LLM).
+Dự án được xây dựng dựa trên:
+- Kiến trúc RAG production-grade từ repo gốc: [Deploying-RAG-on-Kubernetes-with-Jenkins-for-Legal-Document-Retrieval](https://github.com/nguyenthai-duong/Deploying-RAG-on-Kubernetes-with-Jenkins-for-Legal-Document-Retrieval)
+- Phần e-commerce frontend và core từ repo của bạn: [E-commerce](https://github.com/tri01012002/E-commerce)
 
-Vector DB: Weaviate (running in Docker) to store document embeddings.
+**Lưu ý quan trọng (Disclaimer)**  
+Thông tin y tế chỉ mang **tính tham khảo**, được trích xuất từ các nguồn công khai đáng tin cậy. Ứng dụng **không thay thế** tư vấn của bác sĩ hoặc nhân viên y tế chuyên nghiệp. Chỉ gợi ý các sản phẩm **OTC và thảo dược**, không liên quan đến thuốc kê đơn. Người dùng chịu trách nhiệm khi sử dụng thông tin từ hệ thống.
 
-LLM: Vistral-7B-Chat (or similar quantization friendly model) for Vietnamese support.
+## Key Features
 
-Recommendation Engine: Scikit-learn or keyword matching to link chat context to products.
+- **Chatbot hỏi đáp y tế (RAG)**: Trả lời dựa trên tài liệu thực tế, giảm thiểu hallucination
+- **Gợi ý sản phẩm thông minh**: Dựa trên nội dung trò chuyện (rule-based + TF-IDF similarity)
+- **Thương mại điện tử hoàn chỉnh**:
+  - Duyệt sản phẩm, tìm kiếm, lọc theo danh mục
+  - Giỏ hàng, thanh toán (mock hoặc tích hợp VNPay)
+  - Đăng nhập / đăng ký người dùng
+- **Tự động ingest tài liệu**: Upload PDF → tự động xử lý, embedding, indexing vào Weaviate
+- **Triển khai production-grade**:
+  - Kubernetes (GKE) + Helm charts
+  - CI/CD tự động với Jenkins
+  - Monitoring & Observability đầy đủ (Prometheus, Grafana, Loki, Jaeger)
+- **Tối ưu tiếng Việt**: Sử dụng embedding và LLM chuyên biệt cho tiếng Việt
 
-Frontend (React/Next.js)
+## Architecture
+User → React Frontend (E-commerce + Chat UI)
+↓
+FastAPI Backend (/chat, /products, /cart)
+↓
+RAG Pipeline:
 
-UI: Based on user's existing E-commerce repo (React + Tailwind).
+Embed query (vietnamese-embedding)
+Retrieve context (Weaviate)
+Generate answer (Vistral-7B-Chat)
+Extract keywords → Recommend products (PostgreSQL)
+↓
+Observability: Prometheus / Grafana / Loki / Jaeger
+Deployment: Docker → Kubernetes (GKE) ← Jenkins CI/CD
+Data Ingestion: GCS → Cloud Functions → Pub/Sub → Embedding → Weaviate
+## Tech Stack
 
-Chat Interface: A floating or dedicated chat component interacting with the FastAPI backend.
+| Phần                  | Công nghệ chính                                                                 |
+|-----------------------|---------------------------------------------------------------------------------|
+| **Frontend**          | React.js, Tailwind CSS, JavaScript/TypeScript                                   |
+| **Backend API**       | FastAPI (Python)                                                                |
+| **RAG Pipeline**      | LangChain, HuggingFace Transformers                                             |
+| **Embedding**         | dangvantuan/vietnamese-embedding                                                |
+| **LLM**               | Vistral-7B-Chat (local inference)                                               |
+| **Vector Database**   | Weaviate                                                                        |
+| **Product Database**  | PostgreSQL                                                                      |
+| **Recommendations**   | Scikit-learn (TF-IDF), rule-based                                               |
+| **Ingestion**         | PyPDF2, Google Cloud Storage, Cloud Functions, Pub/Sub                         |
+| **Deployment**        | Docker, Kubernetes (GKE), Helm Charts, NGINX Ingress                            |
+| **CI/CD**             | Jenkins (custom image), GitHub webhook                                          |
+| **IaC**               | Terraform (GKE cluster), Ansible (Jenkins VM)                                   |
+| **Observability**     | Prometheus + Grafana, Loki (logs), Jaeger + OpenTelemetry (tracing)            |
+| **Testing**           | Locust (load test), Jupyter notebooks                                           |
 
+## Getting Started
 
-Data
-PostgreSQL: Relational DB for Product catalog, Orders, Users.
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- Docker & Docker Compose
+- Minikube (cho test local) hoặc GCP account (free tier)
+- Git clone repo E-commerce của bạn để tích hợp frontend
 
-Weaviate: Vector DB for medical document chunks.
+### Local Development
 
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/tri01012002/Health-Ecommerce-Chatbot.git
+   cd Health-Ecommerce-Chatbot
+Backend setup
+python -m venv env
+source env/bin/activate    # Windows: env\Scripts\activate
+pip install -r requirements.txt
+Frontend setup
+cd frontend
+npm install
+Start databases
+docker-compose up -d postgres weaviate
+Run backend
+uvicorn app.main:app --reload
+Run frontend
+cd frontend
+npm start
+Mở trình duyệt tại: http://localhost:3000
 
-DevOps
-Docker: Containerization of all services.
+Production Deployment (GCP)
+Cấu hình GCP credentials
+Tạo infra:
+cd terraform
+terraform init
+terraform apply
+Provision Jenkins VM (Ansible)
+Push code → Jenkins tự build & deploy Helm charts lên GKE
+Upload PDF y tế lên GCS bucket để tự động ingest
+Contributing
+Fork repository
+Tạo branch: git checkout -b feature/amazing-feature
+Commit thay đổi: git commit -m 'Add amazing feature'
+Push branch: git push origin feature/amazing-feature
+Mở Pull Request
+Lessons Learned
+Sử dụng mô hình embedding/LLM tiếng Việt giúp tăng đáng kể chất lượng trả lời trong lĩnh vực y tế
+Chạy LLM local trên CPU vẫn khả thi nhưng cần tối ưu prompt và chunk size
+Tích hợp e-commerce + RAG đòi hỏi thiết kế API rõ ràng giữa frontend và AI backend
+Monitoring và tracing rất quan trọng khi triển khai RAG production
+License
+Distributed under the MIT License. See LICENSE for more information.
 
-Kubernetes: Orchestration (Minikube locally, GKE potentially).
-
-Jenkins: CI/CD pipeline automation.
-
-
-Detailed Phased Plan
-Phase 1: Core RAG Setup
-
-[NEW] backend/: Python project structure.
-
-[NEW] data/: Directory for medical PDFs.
-
-Setup Weaviate and verify connection.
-
-Develop script to ingest PDFs and store vectors.
-
-Test basic RAG retrieval in Jupyter Notebook.
-
-
-
-Phase 2: E-commerce Integration
-
-Clone/Copy existing frontend code to frontend/.
-
-Setup PostgreSQL database and seed with sample OTC products.
-
-
-Create FastAPI endpoints:
-
-POST /api/chat: Handles user query -> RAG -> Product Rec -> Response.
-
-GET /api/products: Standard e-commerce listing.
-
-Connect Frontend to these endpoints.
-
-
-
-Phase 3 & 4: Deployment & Scale
-
-Create Dockerfile for Backend and Frontend.
-
-Create docker-compose.yml for unified local dev.
-
-Setup Helmet charts and Jenkins pipeline.
-
-
-Verification Plan
-
-Automated Tests
-
-Unit tests for API endpoints (FastAPI TestClient).
-
-RAG retrieval quality checks (manual evaluation set).
-
-
-Manual Verification
-
-Verify strictly non-hallucinated answers for medical queries.
-
-Verify relevance of product recommendations (e.g., "headache" -> "pain reliever").
-
-
+Contact
+Nguyen Minh Tri
+Email: tringuyen.01012002@gmail.com
+GitHub: @tri01012002
