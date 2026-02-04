@@ -85,3 +85,29 @@ Product recommendations are limited to **OTC (over-the-counter)** and herbal pro
 ```bash
 git clone https://github.com/tri01012002/Bot-Q-and-A-combine-Ecommerce.git
 cd Bot-Q-and-A-combine-Ecommerce
+```
+2. Set up backend
+```bash
+python -m venv env
+source env/bin/activate          # Windows: env\Scripts\activate
+pip install -r requirements.txt
+```
+3. Set up frontend
+```bash
+cd frontend
+npm install
+```
+4. Start databases
+```bash
+docker-compose up -d postgres weaviate
+```
+5. Run backend
+```bash
+Bashuvicorn app.main:app --reload
+```
+6. Run frontend
+```bash
+Bashcd frontend
+npm start
+```
+- Open browser: http://localhost:3000
